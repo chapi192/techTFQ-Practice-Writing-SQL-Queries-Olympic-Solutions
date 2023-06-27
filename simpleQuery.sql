@@ -1,0 +1,1 @@
+select COUNT(1) from OLYMPICS_HISTORY;

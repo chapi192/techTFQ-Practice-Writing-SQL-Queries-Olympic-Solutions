@@ -1,0 +1,42 @@
+PostGreSQL is a blue elephant logo.
+On opening, left side shows servers. I have one set up on this PC. "DEMO" Follows https://www.youtube.com/watch?v=XruOBp7yPXU&ab_channel=techTFQ
+
+=============================================================================================================================================
+In Demo:
+=============================================================================================================================================
+
+First I created a new database. Then by right clicking, select QUERY TOOL and then I have this script to add:
+
+..........................................................
+DROP TABLE IF EXISTS OLYMPICS_HISTORY;
+CREATE TABLE IF NOT EXISTS OLYMPICS_HISTORY
+(
+	id 	INT,
+	name	VARCHAR,
+	sex	VARCHAR,
+	age	VARCHAR,
+	height	VARCHAR,
+	weight	VARCHAR,
+	team	VARCHAR,
+	noc	VARCHAR,
+	games	VARCHAR,
+	year	INT,
+	season	VARCHAR,
+	city	VARCHAR,
+	sport	VARCHAR,
+	event	VARCHAR,
+	meadal	VARCHAR
+);
+
+DROP TABLE IF EXISTS OLYMPICS_HISTORY_NOC_REIGIONS;
+CREATE TABLE IF NOT EXISTS OLYMPICS_HISTORY_NOC_REIGIONS
+(
+	noc	VARCHAR,
+	reigion	VARCHAR,
+	notes	VARCHAR
+);
+..........................................................
+
+This creates two tables under public/Tables. These tables can be filled by right clicking on them and selecting Import/Export
+The files we used in this demo have headers, so make sure to check OPTIONS before importing and selecting this. Otherwise,
+the first entry might not be the right datatype since in the CSV its the name of the column. (Excludes first line)
