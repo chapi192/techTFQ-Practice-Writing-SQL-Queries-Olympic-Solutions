@@ -2,16 +2,17 @@
 6. Identify the sport which was played in all summer olympics.
 */
 
-WITH gamesAndSports AS (
-	SELECT 
-		sport, 
-		COUNT(DISTINCT games) AS numberOfGames
-	FROM 
-		olympics_history
-	WHERE
-		games LIKE '%Summer%'
-	GROUP BY 
-		sport
+WITH 
+	gamesAndSports AS (
+		SELECT 
+			sport, 
+			COUNT(DISTINCT games) AS numberOfGames
+		FROM 
+			olympics_history
+		WHERE
+			games LIKE '%Summer%'
+		GROUP BY 
+			sport
 	)
 	
 SELECT 

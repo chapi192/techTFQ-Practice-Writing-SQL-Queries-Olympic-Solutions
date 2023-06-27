@@ -2,23 +2,24 @@
 4. Which year saw the highest and lowest no of countries participating in olympics
 */
 
-WITH gameCountryCount AS (
-	SELECT 
-		games, 
-		COUNT(DISTINCT noc) AS country_count, 
-		STRING_AGG(DISTINCT noc, ', ') AS country_list
-	FROM
-		olympics_history
-	GROUP BY 
-		games
+WITH 
+	gameCountryCount AS (
+		SELECT 
+			games, 
+			COUNT(DISTINCT noc) AS country_count, 
+			STRING_AGG(DISTINCT noc, ', ') AS country_list
+		FROM
+			olympics_history
+		GROUP BY 
+			games
 	),
 	
-counts AS (
-	SELECT
-		MIN(country_count) AS minimum,
-		MAX(country_count) AS maximum
-	FROM
-		gameCountryCount
+	counts AS (
+		SELECT
+			MIN(country_count) AS minimum,
+			MAX(country_count) AS maximum
+		FROM
+			gameCountryCount
 	),
 
 countriesAndCounts AS (

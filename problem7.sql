@@ -2,24 +2,25 @@
 7. Which Sports were just played only once in the olympics.
 */
 
-WITH sportCount AS (
-	SELECT
-		sport, 
-		COUNT(DISTINCT games) AS numberOfGames
-	FROM 
-		olympics_history
-	GROUP BY
-		sport
+WITH 
+	sportCount AS (
+		SELECT
+			sport, 
+			COUNT(DISTINCT games) AS numberOfGames
+		FROM 
+			olympics_history
+		GROUP BY
+			sport
 	),
 	
-sportAndGame AS (
-	SELECT DISTINCT
-		sport, 
-		games
-	FROM 
-		olympics_history
-	ORDER BY 
-		sport
+	sportAndGame AS (
+		SELECT DISTINCT
+			sport, 
+			games
+		FROM 
+			olympics_history
+		ORDER BY 
+			sport
 	)
 	
 SELECT
