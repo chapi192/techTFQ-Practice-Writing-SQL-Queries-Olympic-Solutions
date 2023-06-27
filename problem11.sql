@@ -1,28 +1,18 @@
 /*
-10. Find the Ratio of male and female athletes participated in all olympic games.
+11. Fetch the top 5 athletes who have won the most gold medals.
 */
 
-WITH 
-	maleCount AS (
-		SELECT
-			COUNT(sex) AS mCount
-		FROM 
-			olympics_history
-		WHERE
-			sex LIKE '%M%'
-	),
-
-	femaleCount AS (
-		SELECT 
-			COUNT(sex) AS fCount
-		FROM 
-			olympics_history
-		WHERE
-			sex LIKE '%F%'
-	)
-
 SELECT
-	CONCAT( '1 : ', ROUND(mCount * 1.0 / fCount, 3)) AS FtoM
-FROM
-	maleCount,
-	femaleCount;
+	name,
+	team,
+	COUNT(meadal) goldMeadalCount
+FROM 
+	olympics_history
+WHERE
+	meadal LIKE '%Gold%'
+GROUP BY
+	name, team
+ORDER BY 
+	goldMeadalCount DESC
+LIMIT
+	5;
