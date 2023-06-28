@@ -4,14 +4,14 @@
 
 SELECT
 	noc as country,
-	COUNT(meadal) as totalMeadalCount
+	COUNT(medal) as totalmedalCount
 FROM
 	olympics_history
 WHERE
-	meadal IN ('Gold', 'Silver', 'Bronze')
+	medal IN ('Gold', 'Silver', 'Bronze')
 GROUP BY
 	country
 ORDER BY
-	totalMeadalCount DESC
+	totalmedalCount DESC
 LIMIT 
 	5;

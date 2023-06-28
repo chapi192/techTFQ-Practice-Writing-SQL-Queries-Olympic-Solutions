@@ -2,14 +2,14 @@
 17. Identify which country won the most gold, most silver, most bronze medals and the most medals in each olympic games.
 */
 WITH 
-	meadalAndCountry as (
+	medalAndCountry as (
 		SELECT
 			games,
 			noc as country,
-			SUM(CASE WHEN meadal LIKE '%Gold%' THEN 1 ELSE 0 END) AS goldCount,
-			SUM(CASE WHEN meadal LIKE '%Silver%' THEN 1 ELSE 0 END) AS silverCount,
-			SUM(CASE WHEN meadal LIKE '%Bronze%' THEN 1 ELSE 0 END) AS bronzeCount,
-			SUM(CASE WHEN meadal NOT LIKE '%NA%' THEN 1 ELSE 0 END) AS totalCount
+			SUM(CASE WHEN medal LIKE '%Gold%' THEN 1 ELSE 0 END) AS goldCount,
+			SUM(CASE WHEN medal LIKE '%Silver%' THEN 1 ELSE 0 END) AS silverCount,
+			SUM(CASE WHEN medal LIKE '%Bronze%' THEN 1 ELSE 0 END) AS bronzeCount,
+			SUM(CASE WHEN medal NOT LIKE '%NA%' THEN 1 ELSE 0 END) AS totalCount
 		FROM
 			olympics_history
 		GROUP BY 
@@ -18,7 +18,7 @@ WITH
 			games, goldCount DESC, silverCount DESC, bronzeCount DESC, totalCount DESC
 		),
 
-	meadalSorted as (
+	medalSorted as (
 		SELECT
 			games,
 			CONCAT(country, ' - ', goldCount) as max_gold,
@@ -30,7 +30,7 @@ WITH
 			ROW_NUMBER() OVER (PARTITION BY games ORDER BY bronzeCount DESC) AS rnB,
 			ROW_NUMBER() OVER (PARTITION BY games ORDER BY totalCount DESC) AS rnT
 		FROM
-			meadalAndCountry
+			medalAndCountry
 		),
 		
 	goldSorted as (
@@ -38,7 +38,7 @@ WITH
 			games,
 			max_gold
 		FROM
-			meadalSorted
+			medalSorted
 		WHERE
 			rnG = 1
 		),
@@ -48,7 +48,7 @@ WITH
 			games,
 			max_silver
 		FROM
-			meadalSorted
+			medalSorted
 		WHERE
 			rnS = 1
 		),
@@ -58,7 +58,7 @@ WITH
 			games,
 			max_bronze
 		FROM 
-			meadalSorted
+			medalSorted
 		WHERE
 			rnB = 1
 		),
@@ -68,7 +68,7 @@ WITH
 			games,
 			max_total
 		FROM 
-			meadalSorted
+			medalSorted
 		WHERE
 			rnT = 1
 		)

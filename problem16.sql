@@ -2,13 +2,13 @@
 16. Identify which country won the most gold, most silver and most bronze medals in each olympic games.
 */
 WITH 
-	meadalAndCountry as (
+	medalAndCountry as (
 		SELECT
 			games,
 			noc as country,
-			SUM(CASE WHEN meadal LIKE '%Gold%' THEN 1 ELSE 0 END) AS goldCount,
-			SUM(CASE WHEN meadal LIKE '%Silver%' THEN 1 ELSE 0 END) AS silverCount,
-			SUM(CASE WHEN meadal LIKE '%Bronze%' THEN 1 ELSE 0 END) AS bronzeCount
+			SUM(CASE WHEN medal LIKE '%Gold%' THEN 1 ELSE 0 END) AS goldCount,
+			SUM(CASE WHEN medal LIKE '%Silver%' THEN 1 ELSE 0 END) AS silverCount,
+			SUM(CASE WHEN medal LIKE '%Bronze%' THEN 1 ELSE 0 END) AS bronzeCount
 		FROM
 			olympics_history
 		GROUP BY 
@@ -17,7 +17,7 @@ WITH
 			games, goldCount DESC, silverCount DESC, bronzeCount DESC
 		),
 
-	meadalSorted as (
+	medalSorted as (
 		SELECT
 			games,
 			CONCAT(country, ' - ', goldCount) as max_gold,
@@ -27,7 +27,7 @@ WITH
 			ROW_NUMBER() OVER (PARTITION BY games ORDER BY silverCount DESC) AS rnS,
 			ROW_NUMBER() OVER (PARTITION BY games ORDER BY bronzeCount DESC) AS rnB
 		FROM
-			meadalAndCountry
+			medalAndCountry
 		),
 		
 	goldSorted as (
@@ -35,7 +35,7 @@ WITH
 			games,
 			max_gold
 		FROM
-			meadalSorted
+			medalSorted
 		WHERE
 			rnG = 1
 		),
@@ -45,7 +45,7 @@ WITH
 			games,
 			max_silver
 		FROM
-			meadalSorted
+			medalSorted
 		WHERE
 			rnS = 1
 		),
@@ -55,7 +55,7 @@ WITH
 			games,
 			max_bronze
 		FROM 
-			meadalSorted
+			medalSorted
 		WHERE
 			rnB = 1
 		)

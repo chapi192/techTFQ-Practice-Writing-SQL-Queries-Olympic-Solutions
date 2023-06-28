@@ -5,14 +5,14 @@
 SELECT
 	name,
 	team,
-	COUNT(meadal) meadalCount
+	COUNT(medal) medalCount
 FROM 
 	olympics_history
 WHERE
-	meadal NOT LIKE '%NA%'
+	medal NOT LIKE '%NA%'
 GROUP BY
 	name, team
 ORDER BY 
-	meadalCount DESC
+	medalCount DESC
 LIMIT
 	5;

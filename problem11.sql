@@ -5,14 +5,14 @@
 SELECT
 	name,
 	team,
-	COUNT(meadal) goldMeadalCount
+	COUNT(medal) goldmedalCount
 FROM 
 	olympics_history
 WHERE
-	meadal LIKE '%Gold%'
+	medal LIKE '%Gold%'
 GROUP BY
 	name, team
 ORDER BY 
-	goldMeadalCount DESC
+	goldmedalCount DESC
 LIMIT
 	5;

@@ -9,11 +9,11 @@ SELECT
 	year,
 	sport,
 	event,
-	meadal	
+	medal	
 FROM
 	olympics_history
 WHERE
-	meadal LIKE '%Gold%' 
+	medal LIKE '%Gold%' 
 	AND
 	age NOT LIKE '%NA%'
 ORDER BY
